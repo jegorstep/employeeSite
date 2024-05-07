@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightgreen;
+        }
+
+    </style>
+</head>
+<body id="task-edit-page">
+<table border="0" width="100%">
+    <tr>
+        <td width="30%">
+
+        </td>
+        <td width="35%">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="100%">
+                        <a href="index.php" id="dashboard-link">Dashboard</a> | <a href="index.php?cmd=employee-list" id="employee-list-link">Employees
+                    </a> | <a href="index.php?cmd=employee-form" id="employee-form-link">Add Employee</a>
+                        | <a href="index.php?cmd=task-list" id="task-list-link">Tasks</a> | <a href="index.php?cmd=task-form" id="task-form-link">Add Task</a>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <div id="error-block" class="error" tpl-if="$errors">
+                <tpl tpl-foreach="$errors as $error">
+                    <table width="100%" style="background-color: indianred">
+                        <tr>
+                            <td>
+                                <strong>{{ $error }}</strong><br>
+                            </td>
+                        </tr>
+                    </table>
+                </tpl>
+            </div>
+            <table border="1" width="100%">
+                <tr>
+                    <td width="100%">
+                        <b>Add Task</b>
+                    </td>
+                </tr>
+            </table>
+            <form method="post" action="index.php?cmd=task-edit&validate=true&id={{$task->id}}">
+                <table border="0" width="100%">
+                    <tr>
+                        <td width="25%" align="right"><br>Description: &nbsp</td>
+                        <td width="75%"> <br> <label>
+                            <textarea  name="description" >{{ $task->task }}</textarea>
+                        </label></td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="right"><br>Estimate: &nbsp</td>
+                        <td width="75%"> <br>
+                            <tpl tpl-foreach="range(1,5) as $dot" tpl-trim-contents>
+                                <label>
+                                    <span>
+                                        <input type="radio" name="estimate" tpl-checked="$task->difficulty == $dot"
+                                               value="{{$dot}}"> {{$dot}}
+                                    </span>
+                                </label>
+                            </tpl>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="25%" align="right"><br>Assigned to: &nbsp</td>
+                        <td width="75%"> <br>
+                            <label>
+                                <select id="employee" name="employeeId">
+                                    <option name="employeeId" value="{{$task->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                    <tpl tpl-foreach="$employees as $employed">
+                                        <span tpl-if="$employed->id != $employee->id" > <option name="employeeId" value="{{$employed->id}}"> {{$employed->first_name}} {{$employed->last_name}}</option>> </span>
+                                    </tpl>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="right"><br> is Completed: &nbsp</td>
+                        <td width="75%" align="left"> <br>
+                            <label>
+                                <input id="isCompleted" type="checkbox" name="isCompleted" value="ready">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"><button type="submit" name="deleteButton" value="delete">Delete</button></td>
+                        <td align="right">
+                            <button type="submit" name="submitButton">Save</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <table width="100%">
+                <tr>
+                    <td height="300" valign="bottom" align="left">
+                        <hr> <b>icd007 Sample Application</b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="40%">
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

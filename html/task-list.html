@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightgreen;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        #task-list-page {
+            padding: 20px;
+        }
+
+        #message-block {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background-color: aquamarine;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .tasks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+
+        }
+
+        .tasks-table th, .tasks-table td {
+            padding: 8px;
+        }
+
+        .tasks-table th {
+            background-color: #ffbb2f;
+            text-align: left;
+        }
+
+        .task-row {
+            border: 1px solid black;
+        }
+
+        .task-info {
+            align-items: center;
+            border: 1px solid black;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .empty {background-color: white; border: 2px solid black}
+        .filled { background-color: red; border: 2px solid black }
+
+
+
+
+    </style>
+</head>
+<body id="task-list-page">
+<table border="0" width="100%">
+    <tr>
+        <td width="30%">
+
+        </td>
+        <td width="35%">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="100%">
+                        <a href="index.php" id="dashboard-link">Dashboard</a> | <a href="index.php?cmd=employee-list" id="employee-list-link">Employees
+                    </a> | <a href="index.php?cmd=employee-form" id="employee-form-link">Add Employee</a>
+                        | <a href="index.php?cmd=task-list" id="task-list-link">Tasks</a> | <a href="index.php?cmd=task-form" id="task-form-link">Add Task</a>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <div id="message-block" class="message" tpl-if="$messages">
+                <tpl tpl-foreach="$messages as $message">
+                    <table width="100%" style="background-color: aquamarine">
+                        <tr>
+                            <td>
+                                <strong>{{ $message }}</strong><br>
+                            </td>
+                        </tr>
+                    </table>
+                </tpl>
+            </div>
+            <table class="tasks-table" border="0" width="100%">
+                <tr>
+                    <th class="task-info" width="100%">
+                        <b>Tasks</b>
+                    </th>
+                </tr>
+
+                        <tpl tpl-foreach="$tasks as $task">
+
+                            <tr class="task-row">
+                                <td>
+                                    <table border="0" width="100%">
+                                        <tr>
+                                            <td width="90%">
+                                                <span class="task-name" data-task-id="{{$task->id}}">{{$task->task}}</span>
+                                            </td>
+                                            <td width="10%" align="right">
+                                                <a id="task-edit-link-{{$task->id}}" href="index.php?cmd=task-edit&id={{$task->id}}">Edit</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" width="50%">
+                                                <tpl tpl-foreach="range(1,5) as $dot" tpl-trim-contents>
+                                                    <span tpl-class="dot filled if $task->difficulty >= $dot"></span>
+                                                    <span tpl-class="dot empty if $task->difficulty < $dot"></span>
+                                                </tpl>
+                                            </td>
+                                            <td align="right" width="50%">
+                                                <span id="task-state-{{$task->id}}"> {{$task->task_status}} </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tpl>
+
+            </table>
+            <table width="100%">
+                <tr>
+                    <td height="300" valign="bottom" align="left">
+                        <hr> <b>icd0007 Sample Application</b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="40%">
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

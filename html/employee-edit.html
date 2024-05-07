@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body id="employee-form-page">
+<table border="0" width="100%">
+    <tr>
+        <td width="30%">
+        </td>
+        <td width="35%">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="100%">
+                        <a href="index.php" id="dashboard-link">Dashboard</a> | <a href="index.php?cmd=employee-list" id="employee-list-link">Employees
+                    </a> | <a href="index.php?cmd=employee-form" id="employee-form-link">Add Employee</a>
+                        | <a href="index.php?cmd=task-list" id="task-list-link">Tasks</a> | <a href="index.php?cmd=task-form" id="task-form-link">Add Task</a>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <div id="error-block" class="error" tpl-if="$errors">
+                <tpl tpl-foreach="$errors as $error">
+                    <table width="100%" style="background-color: indianred">
+                        <tr>
+                            <td>
+                                <strong>{{ $error }}</strong><br>
+                            </td>
+                        </tr>
+                    </table>
+                </tpl>
+            </div>
+            <table border="1" width="100%">
+                <tr>
+                    <td width="100%">
+                        <b>Add Employee</b>
+                    </td>
+                </tr>
+            </table>
+            <form method="post" enctype="multipart/form-data" action="index.php?cmd=employee-edit&validate=true&id={{$employee->id}}">
+                <table border="0" width="100%">
+                    <tr>
+                        <td width="25%" align="right"> <br> First Name: &nbsp;</td>
+                        <td width="75%"> <br>
+                            <label>
+                                <input type="text" name="firstName" value="{{$employee->first_name}}">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="right"> <br> Last Name: &nbsp;</td>
+                        <td width="75%"> <br>
+                            <label>
+                                <input type="text" name="lastName" value="{{$employee->last_name}}">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="right"> <br> Picture: &nbsp;</td>
+                        <td width="75%"> <br>
+                            <label>
+                                <input type="file" name="picture">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left"> <br> <button type="submit" name="deleteButton" value="delete">Delete</button> </td>
+                        <td align="center">
+                            <br>
+                            <button type="submit" name="submitButton">Save</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td height="300" valign="bottom" align="left">
+                            <hr> <b>icd007 Sample Application</b>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+        <td width="40%"></td>
+    </tr>
+</table>
+</body>
+</html>

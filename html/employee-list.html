@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightgreen;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        #employee-list-page {
+            padding: 20px;
+        }
+
+        #navigation {
+            margin-bottom: 20px;
+        }
+
+        #navigation a {
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        #message-block {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background-color: aquamarine;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .employees-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .employees-table th, .employees-table td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        .employees-table th {
+            background-color: #ffbb2f;
+            text-align: left;
+        }
+
+        .employee-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .employee-info img {
+            width: 60px;
+            height: 50px;
+            margin-right: 10px;
+            border: black;
+        }
+
+        .employee-name {
+            flex-grow: 1;
+            padding-bottom: 40px;
+        }
+
+
+        .footer {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body id="employee-list-page">
+<table border="0" width="100%">
+    <tr>
+        <td width="30%">
+
+        </td>
+        <td width="35%">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="100%">
+                        <a href="index.php" id="dashboard-link">Dashboard</a> | <a href="index.php?cmd=employee-list" id="employee-list-link">Employees
+                    </a> | <a href="index.php?cmd=employee-form" id="employee-form-link">Add Employee</a>
+                        | <a href="index.php?cmd=task-list" id="task-list-link">Tasks</a> | <a href="index.php?cmd=task-form" id="task-form-link">Add Task</a>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+
+            <div id="message-block" class="message" tpl-if="$messages">
+                <tpl tpl-foreach="$messages as $message">
+                    <table width="100%" style="background-color: aquamarine">
+                        <tr>
+                            <td>
+                                <strong>{{ $message }}</strong><br>
+                            </td>
+                        </tr>
+                    </table>
+                </tpl>
+            </div>
+
+
+            <table class="employees-table">
+                <tr>
+                    <th>Employees</th>
+                </tr>
+                <div id="employee-block" tpl-if="$employees">
+                    <tpl tpl-foreach="$employees as $employee">
+                        <tr>
+                            <td>
+                                <div class="employee-info">
+                                    <img src="{{ $employee->path }}" alt="NO IMAGE">
+                                    <div class="employee-name" data-employee-id="{{$employee->id}}">
+                                        {{$employee->first_name }} {{$employee->last_name}}
+                                    </div>
+                                    <a id="employee-edit-link-{{$employee->id}}" href="index.php?cmd=employee-edit&id={{$employee->id}}" class="edit-link">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tpl>
+                </div>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td height="300" valign="bottom" align="left">
+                        <hr> <b>icd0007 Sample Application</b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="40%">
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
